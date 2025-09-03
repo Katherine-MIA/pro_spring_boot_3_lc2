@@ -1,3 +1,6 @@
+//gradlew - command-line tool (allows interaction with the dependency management tool)
+//settings.gradle - for more gradle configurations
+//.gradle/ - contains some JARs (in order to not install gradle; this way it downloads all necessary files)6
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.5'
