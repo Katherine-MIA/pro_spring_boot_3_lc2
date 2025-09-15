@@ -1,0 +1,25 @@
+# This is how yaml properties configurations can be set in the same file for multiple
+# profiles
+service:
+  users:
+    server: 127.0.0.1
+    port: 8081
+    username: admin
+    password: aW3s0m3
+
+# This is separator for configurations "---"
+# It will be called only when the profile "cloud" (or whatever name is specified on-profile)
+# is called/set/activated. (hence the name activate on-profile duh)
+# If no profile is set then the configurations above (aka the defaults) will be set.
+---
+spring:
+  config:
+    activate:
+      on-profile: cloud
+
+service:
+  users:
+    server: cloud.server.com
+    port: 1089
+    username: root
+    password: Sup3RaW3s0m3

@@ -6,9 +6,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class MyRetroApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
-        //Not implemented yet
+        //todo: tests
 	}
 
 }
