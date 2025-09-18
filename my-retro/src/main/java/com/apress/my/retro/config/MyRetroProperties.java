@@ -1,8 +1,7 @@
-package com.apress.my.retro;
+package com.apress.my.retro.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
-
+@SuppressWarnings(value = "unused")
 //Signals that the fields in this class should be binding to
 // application.properties/.yaml properties values,
 // provided that the fields have the same name as the properties ofc
@@ -19,7 +18,7 @@ public class MyRetroProperties {
         this.users = users;
     }
 }
-
+@SuppressWarnings(value = "unused")
 class Users {
     String server;
     Integer port;

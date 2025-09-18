@@ -27,19 +27,35 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter'
 //	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // brings: spring-web, spring-webmvc, tomcat, Jackson (JSON manipulation) modules and other JARs
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // brings jakarta-validation JARs for validating objects in the domain (RetroBoard and Card classes)
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // for aspect oriented programming (AOP)
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    // Lombok
+    // Lombok -> eliminates boilerplate code (if you can get it to work inside your project ofc)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    // Properties
+    // Properties -> for preprocessing customized properties,
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-    // Web
+    // Web -> brings css, javascript files from "https://getbootstrap.com/" and adds them as resources
+    // into the webjars/resource folder
     implementation 'org.webjars:bootstrap:5.2.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// for tests logging
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
 }

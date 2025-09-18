@@ -1,4 +1,4 @@
-package com.apress.my.retro;
+package com.apress.my.retro.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@SuppressWarnings(value = "unused")
 @EnableConfigurationProperties({MyRetroProperties.class}) // -> "annotation that accepts an array of
 // ConfigurationProperties marked classes"
 @Configuration

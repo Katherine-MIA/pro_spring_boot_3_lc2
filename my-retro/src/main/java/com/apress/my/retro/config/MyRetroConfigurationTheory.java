@@ -1,5 +1,6 @@
-package com.apress.my.retro;
+package com.apress.my.retro.config;
 
+import com.apress.my.retro.MyRetroApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;

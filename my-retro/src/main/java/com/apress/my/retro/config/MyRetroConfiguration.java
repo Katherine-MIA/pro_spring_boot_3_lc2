@@ -1,4 +1,4 @@
-package com.apress.my.retro;
+package com.apress.my.retro.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @SuppressWarnings("all")
 //@Configuration //-> A configuration can be made like this as well. The book keeps changing the class
