@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 @SuppressWarnings(value = "unused")
-@Repository // Facilitates injection into other classes of a single instance of this object
+@Repository // Facilitates injection into other classes of the instance of this object
 public class RetroBoardRepository implements com.apress.my.retro.persistence.Repository<RetroBoard, UUID> {
     // Clearly whoever wrote this book doesn't use Sonar (omg it made a yellow stripe)
     // This is only for simulating a persistence normally it would be connected to a DB
