@@ -20,4 +20,16 @@ public class Card {
     @NotNull(message = "Card type: HAPPY|MEH|SAD is mandatory.")
     // can have a string and set with @Pattern(regexp = "^(SAD|HAPPY|MEH)$", message = "CardType mandatory...")
     private CardType cardType;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
 }

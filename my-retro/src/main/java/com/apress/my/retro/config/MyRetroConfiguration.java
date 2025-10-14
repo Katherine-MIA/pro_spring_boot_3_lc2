@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @SuppressWarnings("all")
 //@Configuration //-> A configuration can be made like this as well. The book keeps changing the class
 // But I'll leave the examples in the project for me to reference later I'll just comment the @Configuration so
 // that Spring won't try to use them.
 public class MyRetroConfiguration {
+    /*
     Logger logger = LoggerFactory.getLogger(MyRetroConfiguration.class);
 
     //@Value -> specifies a value between "" to  be injected into the variable it annotates
@@ -42,4 +44,6 @@ public class MyRetroConfiguration {
                   - Username: {}
                   - Password: {} """, server,port,username,password);
     }
+
+     */
 }

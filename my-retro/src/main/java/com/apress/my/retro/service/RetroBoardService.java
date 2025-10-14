@@ -3,6 +3,7 @@ package com.apress.my.retro.service;
 import com.apress.my.retro.board.Card;
 import com.apress.my.retro.board.RetroBoard;
 import com.apress.my.retro.exception.CardNotFoundException;
+import com.apress.my.retro.exception.RetroBoardNotFoundException;
 import com.apress.my.retro.persistence.Repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,10 @@ public class RetroBoardService {
     }
 
     public RetroBoard findById(UUID uuid){
-        return this.repository.findById(uuid).get();
+        Optional<RetroBoard> retroBoard = this.repository.findById(uuid);
+        if(retroBoard.isEmpty())
+            throw new RetroBoardNotFoundException();
+        return retroBoard.get();
     }
 
     public Iterable<RetroBoard> findAll(){
@@ -35,7 +39,7 @@ public class RetroBoardService {
     }
 
     public Iterable<Card> findAllCardsFromRetroBoard(UUID uuid){
-        return this.repository.findById(uuid).get().getCards();
+        return this.findById(uuid).getCards();
     }
 
     // Uncle Bob said something not very nice about this method  ... and about all the comments I added to the code...

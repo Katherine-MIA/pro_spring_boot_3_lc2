@@ -5,8 +5,11 @@ import com.apress.my.retro.board.RetroBoard;
 import com.apress.my.retro.service.RetroBoardService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @SuppressWarnings("unused")
 @AllArgsConstructor //Creates constructor for all fields of the class;
@@ -49,6 +50,15 @@ public class RetroBoardController {
      */
     @GetMapping
     public ResponseEntity<Iterable<RetroBoard>> getAllRetroBoards(){
+//        List<RetroBoard> result = new ArrayList<>();
+//        for (RetroBoard retroBoard : retroBoardService.findAll()){
+//            result.add(retroBoard);
+//        }
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        ResponseEntity response = new ResponseEntity(result, headers, HttpStatus.OK);
+//        return response;
+
         return ResponseEntity.ok(retroBoardService.findAll());
     }
 

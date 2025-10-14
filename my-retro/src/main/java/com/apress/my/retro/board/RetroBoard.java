@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Singular;
 
 import java.util.List;
@@ -23,4 +24,15 @@ public class RetroBoard {
     // these calls should be done at object creation, bc after the list will be final
     private List<Card> cards;
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return cards;
+    }
 }

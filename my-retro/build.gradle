@@ -27,6 +27,10 @@ dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter'
 //	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    //implementation 'com.fasterxml.jackson.core:jackson-core:2.20.0'
+
     // brings: spring-web, spring-webmvc, tomcat, Jackson (JSON manipulation) modules and other JARs
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // brings jakarta-validation JARs for validating objects in the domain (RetroBoard and Card classes)

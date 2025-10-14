@@ -33,7 +33,7 @@ public class MyRetroConfigurationTheory {
     // Specify @Bean for spring to know it needs to create this
     // CommandLineRunner -> functional interface with a callback (run method) that accepts arguments
     // passed to the app
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(){
         return args -> logger.info("[CLR] Args: {}", Arrays.toString(args));
     }
@@ -41,7 +41,7 @@ public class MyRetroConfigurationTheory {
     // ApplicationRunner -> functional interface that has a callback (run method) that has
     // ApplicationArguments as a parameter (to make args usable);
     // this implementation gets called before CommandLineRunner
-    @Bean
+    //@Bean
     ApplicationRunner applicationRunner(){
         return args -> {
             logger.info("[AR] Option Args: {}", args.getOptionNames());
@@ -53,7 +53,7 @@ public class MyRetroConfigurationTheory {
     // ApplicationReadyEvent -> event that gets called when Spring Boot app has finished wiring
     // everything up and is ready to interact.
     // ApplicationListener<Event> -> Listens for the call of the specified Event
-    @Bean
+    //@Bean
     ApplicationListener<ApplicationReadyEvent> applicationReadyEventApplicationListener(){
         return event -> logger.info("[AL] Locked and loaded...");
     }
