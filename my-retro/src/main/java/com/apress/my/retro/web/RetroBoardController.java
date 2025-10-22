@@ -5,20 +5,28 @@ import com.apress.my.retro.board.RetroBoard;
 import com.apress.my.retro.service.RetroBoardService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 @AllArgsConstructor //Creates constructor for all fields of the class;
@@ -42,14 +50,15 @@ public class RetroBoardController {
      * Ex: @GetMapping("/{product:[a-z]+}-{version:\\d\\.\\d\\.\\d}{ext:\\.[a-z]+}")
      * There are many ways to define how an endpoint can get accessed (aka specify the path).
      * This path creation works with @RequestMapping and its shortcuts
-     *
+     * <p>
      * ResponseEntity -> Extends HttpEntity (brings headers and the body of a request/response);
      * -> Common practice for web apps; SpringBoot responds by default using HTTP JSON message
      * converter, so unless changed, a JSON response should always be expected.
+     *
      * @return 200 OK Http response and all stored RetroBoards
      */
     @GetMapping
-    public ResponseEntity<Iterable<RetroBoard>> getAllRetroBoards(){
+    public ResponseEntity<Iterable<RetroBoard>> getAllRetroBoards() {
 //        List<RetroBoard> result = new ArrayList<>();
 //        for (RetroBoard retroBoard : retroBoardService.findAll()){
 //            result.add(retroBoard);
@@ -72,13 +81,14 @@ public class RetroBoardController {
      * There can also be defined a custom validator but the default handles pretty well common data constraints.
      * "@PathVariable" -> This binds the path value to the instance(with the same name)
      * of the type it annotates.
+     *
      * @param retroBoard -> request body converted to RetroBoard type passed as parameter
      *                   to the method.
      * @return created response with 201 code for the exact path the request was made to, and
      * the RetroBoard object, created as a result of this request, converted to JSON as the body.
      */
     @PostMapping
-    public ResponseEntity<RetroBoard> saveRetroBoard(@Valid @RequestBody RetroBoard retroBoard){
+    public ResponseEntity<RetroBoard> saveRetroBoard(@Valid @RequestBody RetroBoard retroBoard) {
         RetroBoard result = retroBoardService.save(retroBoard);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -94,7 +104,7 @@ public class RetroBoardController {
     }
 
     @GetMapping("/{uuid}/cards")
-    public ResponseEntity<Iterable<Card>> getAllCardsFromBoard(@PathVariable UUID uuid){
+    public ResponseEntity<Iterable<Card>> getAllCardsFromBoard(@PathVariable UUID uuid) {
         return ResponseEntity.ok(retroBoardService.findAllCardsFromRetroBoard(uuid));
     }
 
@@ -106,21 +116,21 @@ public class RetroBoardController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{uuid}/cards/{uuidCard}")
-                .buildAndExpand(uuid.toString(),result.getId().toString())
+                .buildAndExpand(uuid.toString(), result.getId().toString())
                 .toUri();
         return ResponseEntity.created(location).body(result);
     }
 
     @GetMapping("/{uuid}/cards/{uuidCard}")
-    public ResponseEntity<Card> getCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard){
-        return ResponseEntity.ok(retroBoardService.findCardByUUIDFromRetroBoard(uuid,uuidCard));
+    public ResponseEntity<Card> getCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard) {
+        return ResponseEntity.ok(retroBoardService.findCardByUUIDFromRetroBoard(uuid, uuidCard));
     }
 
     //For setting up a HTTP code into the response of a controller method or an exception handler.
     //204 NO_CONTENT in this case
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{uuid}/cards/{uuidCard}")
-    public void deleteCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard){
+    public void deleteCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard) {
         retroBoardService.removeCardFromRetroBoard(uuid, uuidCard);
     }
 
@@ -132,15 +142,15 @@ public class RetroBoardController {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleValidationException(MethodArgumentNotValidException ex){
+    public Map<String, Object> handleValidationException(MethodArgumentNotValidException ex) {
         Map<String, Object> response = new HashMap<>();
         response.put("msg", "There is an error");
         response.put("code", HttpStatus.BAD_REQUEST.value());
         response.put("time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
 
         Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error)-> {
-            String fieldName = ((FieldError)error).getField();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });

@@ -4,7 +4,6 @@ import com.apress.my.retro.board.Card;
 import com.apress.my.retro.board.CardType;
 import com.apress.my.retro.board.RetroBoard;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;

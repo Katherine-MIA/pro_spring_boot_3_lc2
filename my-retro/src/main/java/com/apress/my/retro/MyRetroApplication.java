@@ -16,7 +16,9 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 //It is passing MyRetroApplication.class because the annotation on the class @SpringBootApplication contains
 //@SpringBootConfiguration (which is still a @Configuration annotation). This annotation in turn searches for any
 //@Bean declarations that exist in the class
-@SpringBootApplication(exclude = {WebMvcAutoConfiguration.class})
+@SpringBootApplication
+// Removed -> (exclude = {WebMvcAutoConfiguration.class}) When WebMvc goes brr maybe worth checking this too
+// just in case I forgot I excluded it... x_X
 public class MyRetroApplication {
 
     static Logger logger = LoggerFactory.getLogger(MyRetroApplication.class);
