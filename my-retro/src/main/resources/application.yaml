@@ -1,9 +1,9 @@
-# This is how yaml properties configurations can be set in the same file for multiple
-# profiles
+# This is how yaml properties configurations can be set in the same file for multiple profiles
+# Here see the "service" is the same prefix called in the configuration and will inject the same-name values.
 service:
   users:
-    server: 127.0.0.1
-    port: 8081
+    server: http://localhost
+    port: 8082
     username: admin
     password: aW3s0m3
 
@@ -20,6 +20,6 @@ spring:
 service:
   users:
     server: cloud.server.com
-    port: 1089
+    port: 8089
     username: root
     password: Sup3RaW3s0m3
