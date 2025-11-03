@@ -26,12 +26,20 @@ repositories {
 
 dependencies {
     //jdbc
+    // If there are SQL files in the classpath they will be executed automatically,
+    // (say you make a migration folder in resources). they do have to respect a naming convention.
+    // " In this case, the schema.sql file (for CREATE, DROP, etc. statements to manipulate the database),
+    // and a data.sql file (where you can have all the INSERT or UPDATE statements). You can have
+    // multiple schema files and even can be recognized by database engine, for example you
+    // can have schema-h2.sql and schema-postgresql.sql; the same applies for the data-
+    // {engine}.sql files. To use this feature, it is important to use the spring.sql.init.
+    // platform property and either h2, postgresql, mysql, oracle, hsqldb, etc."
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     runtimeOnly 'com.h2database:h2'
-    //runtimeOnly 'org.postgresql:postgresql'
+     runtimeOnly 'org.postgresql:postgresql'
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
-    implementation 'com.mysql:mysql-connector-j:9.5.0'
-	//web
+    //implementation 'com.mysql:mysql-connector-j:9.5.0'
+	// web
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 	//lombok

@@ -1,0 +1,12 @@
+# best option for avoiding multiple external services installation and even emulates actually using containers.
+version: "3"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test-db
+    ports:
+      - 5432:5432
