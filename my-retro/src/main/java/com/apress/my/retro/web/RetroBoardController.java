@@ -123,7 +123,15 @@ public class RetroBoardController {
 
     @GetMapping("/{uuid}/cards/{uuidCard}")
     public ResponseEntity<Card> getCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard) {
-        return ResponseEntity.ok(retroBoardService.findCardByUUIDFromRetroBoard(uuid, uuidCard));
+        return ResponseEntity.ok(retroBoardService.findCardByUUID(uuid, uuidCard));
+    }
+
+    // Something fish took place here, why ask for the 2nd path var if not necessary?! Book no more drink 4 u!!!
+    @PutMapping("/{uuid}/cards/{uuidCard}")
+    public ResponseEntity<Card> updateCardByUUID(@PathVariable UUID uuid,
+                                                 @PathVariable UUID uuidCard,
+                                                 @RequestBody Card card) {
+        return ResponseEntity.ok(retroBoardService.saveCard(uuid,card));
     }
 
     //For setting up a HTTP code into the response of a controller method or an exception handler.
@@ -131,7 +139,7 @@ public class RetroBoardController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{uuid}/cards/{uuidCard}")
     public void deleteCardFromRetroBoard(@PathVariable UUID uuid, @PathVariable UUID uuidCard) {
-        retroBoardService.removeCardFromRetroBoard(uuid, uuidCard);
+        retroBoardService.removeCardByUUID(uuid, uuidCard);
     }
 
     /* Marks a method as the handler of a specified exception thrown withing the controller

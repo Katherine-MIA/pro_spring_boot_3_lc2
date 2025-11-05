@@ -2,11 +2,30 @@ package com.apress.my.retro.board;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class Card {
+    private UUID id;
+
+    @NotBlank
+    private String comment;
+
+    @NotNull
+    private CardType cardType;
+
+    private UUID retroBoardId;
+}
+
+/* --> USED TO BE FIRST VERSION Of MY-RETRO
 @Builder
 @Data
 public class Card {
@@ -33,3 +52,4 @@ public class Card {
         return cardType;
     }
 }
+*/ // Keep as comment for quick referencing

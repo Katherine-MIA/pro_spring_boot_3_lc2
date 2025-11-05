@@ -2,14 +2,33 @@ package com.apress.my.retro.board;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Singular;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class RetroBoard {
+    private UUID id;
+
+    @NotBlank(message = "Name must be provided")
+    private String name;
+
+    @Singular
+    Map<UUID, Card> cards = new HashMap<>();
+}
+
+/* --> FIRST VERSION OF MY-RETRO RetroBoard class
 @Builder // helps create immutable objects
 @Data // generated getters, setters, toString(), hashCode(), equals(Object o)
 public class RetroBoard {
@@ -36,3 +55,4 @@ public class RetroBoard {
         return cards;
     }
 }
+*/

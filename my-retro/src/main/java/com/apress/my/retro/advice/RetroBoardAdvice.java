@@ -18,8 +18,22 @@ import java.util.UUID;
 // "  that will be intercepting a particular method depending on the matcher declaration.
 // Behind the scenes, Spring creates proxies for these classes and applies everything related to AOP."
 public class RetroBoardAdvice {
-    @Around("execution(* com.apress.myretro.persistence.RetroBoardRepository.findById(java.util.UUID))")
-    /* @Around -> Intercepts the execution of the method specified in the "execution()" declaration.
+
+    // Will intercept the execution of findById and, if it doesn't return a RetroBoard object,
+    // it will throw a RetroBoardNotFoundException (handled by RetroBoardResponseEntityExceptionHandler class).
+    @Around("execution(* com.apress.my.retro.persistence.RetroBoardRepository.findById(..))")
+    public Object checkFindRetroBoard(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        log.info("[ADVICE] {}", proceedingJoinPoint.getSignature().getName());
+        Optional<RetroBoard> retroBoard = (Optional<RetroBoard>) proceedingJoinPoint.proceed(
+                new Object[]{UUID.fromString(proceedingJoinPoint.getArgs()[0].toString())});
+        if(retroBoard.isEmpty())
+            throw new RetroBoardNotFoundException();
+        return retroBoard;
+    }
+
+    /* --> FIRST VERSION OF MY-RETRO ASPECT CLASS LOGIC for exceptions
+    @Around("execution(* com.apress.my.retro.persistence.RetroBoardRepository.findById(java.util.UUID))")
+    * @Around -> Intercepts the execution of the method specified in the "execution()" declaration.
     According to the advice used (@Around in this case) it will execute the annotated method logic
     alongside the call to the "watched/listened to" method.
     * "In this case, it will intercept the call (based on the execution declaration that matches
@@ -41,7 +55,7 @@ public class RetroBoardAdvice {
     object that is being advised (RetroBoardRepository.findById); it has the actual object, and we
     can call the proceed() that will execute it, and we can get the result and return it. See that
     we can manipulate the result or even the parameters that we are sending. Only the @Around Advice
-    must have this ProceedingJoinPoint." */
+    must have this ProceedingJoinPoint."
     public Object checkFindRetroBoard(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
         log.info("[ADVICE] findRetroBoardById");
         Optional<RetroBoard> retroBoard = (Optional<RetroBoard>) proceedingJoinPoint
@@ -55,6 +69,7 @@ public class RetroBoardAdvice {
             throw new RetroBoardNotFoundException();
         return retroBoard;
     }
+     */
 }
 /*
 * "With this Advice we are isolating our concern about a check, avoiding any repetition

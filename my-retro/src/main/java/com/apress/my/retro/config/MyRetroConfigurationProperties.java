@@ -4,9 +4,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 
 @SuppressWarnings(value = "unused")
-@EnableConfigurationProperties({MyRetroProperties.class}) // -> "annotation that accepts an array of
+// --> FIRST VERSION OF MY-RETRO CONFIG EXAMPLE
+//@EnableConfigurationProperties({MyRetroProperties.class}) // -> "annotation that accepts an array of
 // ConfigurationProperties marked classes"
-@Configuration
+//@Configuration
 public class MyRetroConfigurationProperties {
 //    Logger logger = LoggerFactory.getLogger(MyRetroConfigurationProperties.class);
 //

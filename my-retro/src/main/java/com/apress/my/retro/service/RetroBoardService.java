@@ -5,12 +5,71 @@ import com.apress.my.retro.board.RetroBoard;
 import com.apress.my.retro.exception.CardNotFoundException;
 import com.apress.my.retro.exception.RetroBoardNotFoundException;
 import com.apress.my.retro.persistence.Repository;
+import com.apress.my.retro.persistence.RetroBoardRowMapper;
+import com.apress.my.retro.persistence.SimpleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @SuppressWarnings(value = "unused") // it's painful having an IDE that doesn't recognise spring; not nice being poor don't try it
+@AllArgsConstructor
+@Service
+public class RetroBoardService {
+    SimpleRepository<RetroBoard, UUID> retroBoardRepository;
+
+    public RetroBoard save(RetroBoard domain) {
+        return this.retroBoardRepository.save(domain);
+    }
+
+    public RetroBoard findById(UUID uuid) {
+        return this.retroBoardRepository.findById(uuid).get();
+    }
+
+    public Iterable<RetroBoard> findAll() {
+        return this.retroBoardRepository.findAll();
+    }
+
+    public void delete(UUID uuid) {
+        this.retroBoardRepository.deleteById(uuid);
+    }
+
+    public Iterable<Card> findAllCardsFromRetroBoard(UUID uuid) {
+        return this.findById(uuid).getCards().values();
+    }
+
+    public Card addCardToRetroBoard(UUID uuid, Card card) {
+        RetroBoard retroBoard = this.findById(uuid);
+        if(card.getId() == null) {
+            card.setId(UUID.randomUUID());
+        }
+        retroBoard.getCards().put(card.getId(), card);
+        this.save(retroBoard);
+        return card;
+    }
+
+    public Card findCardByUUID(UUID uuid, UUID uuidCard) {
+        RetroBoard retroBoard = this.findById(uuid);
+        return retroBoard.getCards().get(uuidCard);
+    }
+    // Duplicate code with addCardToRetroBoard() method, some code adjustments would work here.
+    public Card saveCard(UUID uuid, Card card) {
+        RetroBoard retroBoard = this.findById(uuid);
+        retroBoard.getCards().put(card.getId(), card);
+        this.save(retroBoard);
+        return card;
+    }
+
+    public void removeCardByUUID(UUID uuid, UUID uuidCard) {
+        RetroBoard retroBoard = this.findById(uuid);
+        retroBoard.getCards().remove(uuidCard);
+        this.save(retroBoard);
+    }
+}
+
+
+
+/* --> FIRST VERSION OF MY-RETRO RetroBoardService class
 @AllArgsConstructor
 @Service // Should have one service per model, not one service for both Card and RetroBoard, but ok.
 public class RetroBoardService {
@@ -71,3 +130,4 @@ public class RetroBoardService {
         retroBoard.setCards(cardList);
     }
 }
+*/

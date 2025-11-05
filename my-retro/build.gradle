@@ -37,6 +37,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // for aspect oriented programming (AOP)
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    // JDBC -> db connection
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'org.postgresql:postgresql'
+    // Docker Compose -> new feature for Spring Boot 3.1
+    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
     // Lombok -> eliminates boilerplate code (if you can get it to work inside your project ofc)
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
